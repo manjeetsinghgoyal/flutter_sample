@@ -22,10 +22,8 @@ class LoginScreen extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text("Login",
-                        style: TextStyle(fontSize: 28, fontWeight: FontWeight.w100)),
+                        style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
                     SizedBox(height: 20),
-
-                    // Email Field
                     TextFormField(
                       decoration: InputDecoration(
                         labelText: "Email",
@@ -33,21 +31,9 @@ class LoginScreen extends StatelessWidget {
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12)),
                       ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Email is required";
-                        }
-                        // Simple email regex
-                        final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
-                        if (!emailRegex.hasMatch(value)) {
-                          return "Enter a valid email address";
-                        }
-                        return null;
-                      },
                     ),
                     SizedBox(height: 15),
 
-                    // Password Field
                     TextFormField(
                       obscureText: true,
                       decoration: InputDecoration(
@@ -56,19 +42,9 @@ class LoginScreen extends StatelessWidget {
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12)),
                       ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Password is required";
-                        }
-                        if (value.length < 6) {
-                          return "Password must be at least 6 characters";
-                        }
-                        return null;
-                      },
                     ),
                     SizedBox(height: 30),
 
-                    // Login Button
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         minimumSize: Size(double.infinity, 50),
@@ -77,15 +53,11 @@ class LoginScreen extends StatelessWidget {
                       ),
                       child: Text("Login"),
                       onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          // Form is valid → proceed
-                          Navigator.pushReplacementNamed(context, Routes.home);
-                        }
+                        Navigator.pushReplacementNamed(context, Routes.home);
                       },
                     ),
                     SizedBox(height: 10),
 
-                    // Signup Button
                     TextButton(
                       child: Text("Don't have an account? Sign Up"),
                       onPressed: () {
