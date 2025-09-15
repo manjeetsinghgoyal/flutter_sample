@@ -36,7 +36,7 @@ packages:
   bloc:
     dependency: "direct main"
     description:
-      name: bloc
+      name: domain
       sha256: "52c10575f4445c61dd9e0cafcc6356fdd827c4c64dd7945ef3c4105f6b6ac189"
       url: "https://pub.dev"
     source: hosted
