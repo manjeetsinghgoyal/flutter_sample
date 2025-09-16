@@ -9,4 +9,7 @@ abstract class ProductRepository{
   Future<void> removeFromCart(Product product);
 
   Future<List<Product>> getCartProducts();
+
+  Future<Map<String, int>> getCartQuantities();
+
 }

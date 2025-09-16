@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../domain/entities/product.dart';
 
 class ProductTile extends StatefulWidget {
@@ -33,14 +32,16 @@ class _ProductTileState extends State<ProductTile> {
           borderRadius: BorderRadius.circular(16),
           boxShadow: _isHovered
               ? [
+            // jab hover kare to zyada shadow
             BoxShadow(
               color: Colors.black26,
-              blurRadius: 10,
+              blurRadius: 12,
               spreadRadius: 2,
-              offset: const Offset(0, 4),
+              offset: const Offset(0, 6),
             ),
           ]
               : [
+            // normal state me halki shadow
             BoxShadow(
               color: Colors.black12,
               blurRadius: 4,

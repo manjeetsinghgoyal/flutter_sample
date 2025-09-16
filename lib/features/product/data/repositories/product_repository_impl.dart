@@ -7,25 +7,41 @@ class ProductRepositoryImpl implements ProductRepository {
 
   ProductRepositoryImpl(this.productRemoteDataSource);
 
-  final List<Product> cart = [];
-
+  final Map<String, int> cart = {}; // productId -> quantity
+  final Map<String, Product> cartProducts = {}; // productId -> product
   @override
   Future<void> addToCart(Product product) async {
-    cart.add(product);
+    if (cart.containsKey(product.id)) {
+      cart[product.id] = cart[product.id]! + 1;
+    } else {
+      cart[product.id] = 1;
+      cartProducts[product.id] = product;
+    }
+  }
+
+  @override
+  Future<void> removeFromCart(Product product) async {
+    if (cart.containsKey(product.id)) {
+      if (cart[product.id]! > 1) {
+        cart[product.id] = cart[product.id]! - 1;
+      } else {
+        cart.remove(product.id);
+        cartProducts.remove(product.id);
+      }
+    }
+  }
+
+  @override
+  Future<List<Product>> getCartProducts() async {
+    return cartProducts.values.toList();
+  }
+
+  Future<Map<String, int>> getCartQuantities() async {
+    return cart;
   }
 
   @override
   Future<List<Product>> fetchProducts() async {
     return await productRemoteDataSource.getProducts();
-  }
-
-  @override
-  Future<List<Product>> getCartProducts() async {
-    return cart;
-  }
-
-  @override
-  Future<void> removeFromCart(Product product) async {
-    cart.removeWhere((p) => p.id == product.id);
   }
 }

@@ -21,12 +21,14 @@ class ProductBloc extends Bloc<ProductEvent,ProductState>{
     on<AddToCartEvent>((event,emit) async {
       await productRepository.addToCart(event.product);
       final cart = await productRepository.getCartProducts();
-      emit(state.copyWith(cart: cart));
+      final quantities = await productRepository.getCartQuantities();
+      emit(state.copyWith(cart: cart,));
     });
 
     on<RemoveFromCartEvent>((event,emit) async {
       await productRepository.removeFromCart(event.product);
       final cart = await productRepository.getCartProducts();
+      final quantities = await productRepository.getCartQuantities();
       emit(state.copyWith(cart: cart));
     });
 
