@@ -32,20 +32,28 @@ dependencies:
     sdk: flutter
 
   flutter_bloc: ^9.1.1
-
   bloc: ^9.0.0
 
   http: ^1.5.0
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.8
+  dio: ^5.0.0
+  retrofit: ^4.7.2
+  json_annotation: ^4.8.0
 
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+
+  sqflite: ^2.3.3   # ✅ updated to latest stable
+
+  path: ^1.8.3
+  path_provider: ^2.0.14
+
+  cupertino_icons: ^1.0.8
   bloc_test: ^10.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
- # The "flutter_lints" package below contains a set of recommended lints to
+  # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
