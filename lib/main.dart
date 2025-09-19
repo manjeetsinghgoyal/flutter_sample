@@ -1,23 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'ui/login_screen.dart';
-import 'data/db/hive_manager.dart';
+import 'src/ui/screens/add_reading_screen.dart';
+import 'src/repositories/bill_repository.dart';
+import 'src/services/api_client.dart';
+import 'src/services/retrofit_api.dart';
 
-Future<void> main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Hive.initFlutter();
-  await HiveManager.init();
-  runApp(const MyApp());
+  final apiClient = ApiClient.create();
+  final api = RetrofitApi(apiClient);
+  final repo = BillRepository(api);
+  runApp(MyApp(repo));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final BillRepository repo;
+  const MyApp(this.repo, {super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'API + Hive/SQLite Demo',
+      title: 'Tata Power Bill Reading',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: const LoginScreen(),
+      home: AddReadingScreen(repository: repo),
     );
   }
 }
