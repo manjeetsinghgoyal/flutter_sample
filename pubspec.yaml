@@ -1,6 +1,6 @@
 name: github_pagination_demo
 description: A demo for paginated GitHub issues in Flutter.
-publish_to: 'none'
+publish_to: 'https://pub.dev'
 version: 0.0.1
 homepage: https://github.com/manjeetsinghgoyal/flutter_sample/tree/pagination
 
