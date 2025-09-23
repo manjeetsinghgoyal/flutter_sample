@@ -1,27 +1,20 @@
 import 'package:flutter/material.dart';
-import 'src/ui/screens/add_reading_screen.dart';
-import 'src/repositories/bill_repository.dart';
-import 'src/services/api_client.dart';
-import 'src/services/retrofit_api.dart';
+import 'pages/issue_list_page.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  final apiClient = ApiClient.create();
-  final api = RetrofitApi(apiClient);
-  final repo = BillRepository(api);
-  runApp(MyApp(repo));
+void main() {
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final BillRepository repo;
-  const MyApp(this.repo, {super.key});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Tata Power Bill Reading',
+      debugShowCheckedModeBanner: false,
+      title: 'GitHub Pagination Demo',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: AddReadingScreen(repository: repo),
+      home: IssueListPage(),
     );
   }
 }
