@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:flutter_event_bus_chat/screens/chat_screen.dart';
+import 'package:flutter_event_bus_chat/screens/login_screen.dart';
 import 'package:yaml/yaml.dart';
 
 void main() async {
