@@ -1,20 +1,45 @@
 import 'package:flutter/material.dart';
-import 'routes.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Navigator Demo',
+      title: 'Flutter CI Demo',
       theme: ThemeData(primarySwatch: Colors.blue),
-      initialRoute: Routes.login,
-      onGenerateRoute: Routes.generateRoute,
+      home: const CounterScreen(),
     );
   }
 }
-// first time user enter in app they splash -->onboarding--> login --> home /Register
-// first time user logged splash --> is uer logged in then redirect to home screen else redirect to login screen
+
+class CounterScreen extends StatefulWidget {
+  const CounterScreen({super.key});
+
+  @override
+  State<CounterScreen> createState() => _CounterScreenState();
+}
+
+class _CounterScreenState extends State<CounterScreen> {
+  int _counter = 0;
+
+  void _increment() => setState(() => _counter++);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Counter App')),
+      body: Center(
+        child: Text('Count: $_counter', style: const TextStyle(fontSize: 24)),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _increment,
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+}
