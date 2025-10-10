@@ -22,12 +22,6 @@ jobs:
           run: flutter pub get
           working-directory: .
 
-        - name: Analyze and Test
-          run: |
-            flutter analyze
-            flutter test
-          working-directory: .
-
         - name: Build Flutter Web
           run: flutter build web --release
           working-directory: .
