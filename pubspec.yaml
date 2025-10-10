@@ -8,11 +8,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  characters: 1.4.0
+  meta: 1.16.0
+  material_color_utilities: 0.11.1
+  test_api: 0.7.6
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  lints: ^3.0.0
+  lints: ^6.0.0
 
 flutter:
   uses-material-design: true
