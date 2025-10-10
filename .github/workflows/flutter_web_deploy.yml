@@ -8,6 +8,7 @@ on:
 jobs:
     build_and_deploy:
       runs-on: ubuntu-latest
+
       steps:
         - name: Checkout repository
           uses: actions/checkout@v4
@@ -15,16 +16,13 @@ jobs:
         - name: Setup Flutter
           uses: subosito/flutter-action@v2
           with:
-            flutter-version: 'stable'
-            channel: 'stable'
+            flutter-version: '3.24.0'
 
         - name: Get Dependencies
           run: flutter pub get
-          working-directory: .
 
         - name: Build Flutter Web
           run: flutter build web --release
-          working-directory: .
 
         - name: Deploy to Github Pages
           uses: peaceiris/actions-gh-pages@v4
