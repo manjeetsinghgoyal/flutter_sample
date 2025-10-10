@@ -8,12 +8,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  characters: ^1.4.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  lints: ^6.0.0
+  lints: ^3.0.0
 
 flutter:
   uses-material-design: true
