@@ -20,20 +20,20 @@ jobs:
 
         - name: Get Dependencies
           run: flutter pub get
-          working-directory: ./flutter_sample
+          working-directory: .
 
         - name: Analyze and Test
           run: |
             flutter analyze
             flutter test
-          working-directory: ./flutter_sample
+          working-directory: .
 
         - name: Build Flutter Web
           run: flutter build web --release
-          working-directory: ./flutter_sample
+          working-directory: .
 
         - name: Deploy to Github Pages
           uses: peaceiris/actions-gh-pages@v4
           with:
             github_token: ${{secrets.GITHUB_TOKEN}}
-            publish_dir: ./flutter_sample/build/web
+            publish_dir: ./build/web
