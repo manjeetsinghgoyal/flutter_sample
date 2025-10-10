@@ -8,10 +8,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  characters: 1.4.0
-  meta: 1.16.0
-  material_color_utilities: 0.11.1
-  test_api: 0.7.6
+  characters: ^1.4.0   # Safe to upgrade if compatible
 
 dev_dependencies:
   flutter_test:
