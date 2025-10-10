@@ -15,19 +15,22 @@ jobs:
         - name: Setup Flutter
           uses: subosito/flutter-action@v2
           with:
-              flutter-version: 'stable'
-              channel: 'stable'
+            flutter-version: 'stable'
+            channel: 'stable'
 
         - name: Get Dependencies
           run: flutter pub get
+          working-directory: .
 
         - name: Analyze and Test
           run: |
             flutter analyze
             flutter test
+          working-directory: .
 
         - name: Build Flutter Web
           run: flutter build web --release
+          working-directory: .
 
         - name: Deploy to Github Pages
           uses: peaceiris/actions-gh-pages@v4
