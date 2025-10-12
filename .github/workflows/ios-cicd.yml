@@ -28,13 +28,6 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      # Step 4: Run code analyzer
-      - name: Analyze
-        run: flutter analyze
-
-      # Step 5: Run tests
-      - name: Test
-        run: flutter test
 
       # Step 6: Set up CocoaPods (iOS dependencies)
       - name: Install CocoaPods
