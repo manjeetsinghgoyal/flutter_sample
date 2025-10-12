@@ -1,0 +1,80 @@
+name: Flutter iOS CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-ios:
+    runs-on: macos-latest
+
+    steps:
+      # Step 1: Checkout repo
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Flutter
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.35.6'  # Flutter version that includes Dart 3.9+
+          channel: 'stable'
+
+      - name: Flutter version
+        run: flutter --version
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: flutter pub get
+
+      # Step 4: Run code analyzer
+      - name: Analyze
+        run: flutter analyze
+
+      # Step 5: Run tests
+      - name: Test
+        run: flutter test
+
+      # Step 6: Set up CocoaPods (iOS dependencies)
+      - name: Install CocoaPods
+        run: |
+          sudo gem install cocoapods
+          pod repo update
+          cd ios
+          pod install
+          cd ..
+
+      # Step 7: Decrypt provisioning profile (optional if using secrets)
+      - name: Set up Provisioning Profile
+        run: |
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          echo "${{ secrets.IOS_PROVISIONING_PROFILE }}" | base64 --decode > ~/Library/MobileDevice/Provisioning\ Profiles/MyApp.mobileprovision
+
+      # Step 8: Set up signing certificate
+      - name: Set up Certificate
+        run: |
+          echo "${{ secrets.IOS_CERTIFICATE }}" | base64 --decode > ios_signing.p12
+          security create-keychain -p "" build.keychain
+          security import ios_signing.p12 -k ~/Library/Keychains/build.keychain -P "${{ secrets.IOS_CERT_PASSWORD }}" -T /usr/bin/codesign
+          security list-keychains -s ~/Library/Keychains/build.keychain
+          security default-keychain -s ~/Library/Keychains/build.keychain
+          security unlock-keychain -p "" ~/Library/Keychains/build.keychain
+          security set-keychain-settings -t 3600 -u ~/Library/Keychains/build.keychain
+
+      # Step 9: Build release IPA
+      - name: Build iOS IPA
+        run: flutter build ipa --release --export-options-plist=ios/ExportOptions.plist
+
+      # Step 10: Upload to App Store Connect
+      - name: Upload to App Store
+        env:
+          APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY_JSON }}
+        run: |
+          xcrun altool --upload-app \
+            -f build/ios/ipa/Runner.ipa \
+            -t ios \
+            -u "${{ secrets.APP_STORE_CONNECT_USERNAME }}" \
+            -p "${{ secrets.APP_STORE_CONNECT_PASSWORD }}" \
+            --verbose
