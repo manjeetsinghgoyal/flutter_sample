@@ -1,5 +1,5 @@
-name: flutter_web_cicd
-description: Flutter web app for CI/CD workflow
+name: flutter_android_cicd
+description: Flutter android app for CI/CD workflow
 publish_to: 'none'
 
 environment:
