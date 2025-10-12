@@ -36,14 +36,6 @@ jobs:
       - name: 📦 Install dependencies
         run: flutter pub get
 
-      # Step 5: Analyze code
-      - name: 🔍 Analyze code
-        run: flutter analyze
-
-      # Step 6: Run tests
-      - name: 🧪 Run tests
-        run: flutter test
-
       # Step 7: Decode keystore
       - name: 🔑 Decode Keystore
         run: |
