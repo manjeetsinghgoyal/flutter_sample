@@ -3,7 +3,7 @@ name: 🤖 Flutter Android CI/CD
 on:
   push:
     branches:
-      - main
+      - ci_cd_demo_android
   workflow_dispatch:
 
 permissions:
