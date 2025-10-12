@@ -3,7 +3,7 @@ name: Flutter iOS CI/CD
 on:
   push:
     branches:
-      - main
+      - ci_cd_demo_ios
   workflow_dispatch:
 
 jobs:
