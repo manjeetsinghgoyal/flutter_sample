@@ -15,7 +15,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Flutter Web CI/CD Example')),
+      appBar: AppBar(title: const Text('Flutter Web Test CI/CD Example')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
