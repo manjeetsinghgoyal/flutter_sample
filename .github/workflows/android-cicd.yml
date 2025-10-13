@@ -1,9 +1,9 @@
-name: 🤖 Flutter Android CI/CD
+name: 🤖 Flutter Android Apk
 
 on:
   push:
     branches:
-      - ci_cd_demo_android
+      - ci_cd_demo_android_apk_test
   workflow_dispatch:
 
 permissions:
@@ -36,37 +36,13 @@ jobs:
       - name: 📦 Install dependencies
         run: flutter pub get
 
-      # Step 7: Decode keystore
-      - name: 🔑 Decode Keystore
-        run: |
-          echo "$ANDROID_KEYSTORE_BASE64" | base64 --decode > android/app/upload-keystore.jks
-        env:
-          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+      # Step 5: build apk
+      - name: Build APK
+        run: flutter build apk --release
 
-      # Step 8: Recreate key.properties
-      - name: 🧭 Create key.properties
-        run: |
-          echo "storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" >> android/key.properties
-          echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> android/key.properties
-          echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" >> android/key.properties
-          echo "storeFile=upload-keystore.jks" >> android/key.properties
-
-      # Step 9: Build release AAB
-      - name: 🏗️ Build AAB
-        run: flutter build appbundle --release
-
-      # Step 10: Upload artifact
-      - name: 📤 Upload AAB
+      # Step 6: create artifacts
+      - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: release-aab
-          path: build/app/outputs/bundle/release/app-release.aab
-
-      # Optional: Deploy to Play Store
-      - name: 🚀 Deploy to Google Play (Internal)
-        uses: r0adkll/upload-google-play@v1
-        with:
-          serviceAccountJsonPlainText: ${{ secrets.PLAY_STORE_SERVICE_ACCOUNT }}
-          packageName: com.example.app   # 👈 replace with your package name
-          releaseFiles: build/app/outputs/bundle/release/app-release.aab
-          track: internal
+          name: app-release.apk
+          path: build/app/outputs/flutter-apk/app-release.apk
