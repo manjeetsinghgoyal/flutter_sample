@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -8,35 +9,39 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _counter = 0;
+ static const platform = MethodChannel('com.example.battery');
 
-  void _increment() => setState(() => _counter++);
+ String _batteryLevel = "unknown";
 
+ Future<void> _getBatteryLevel() async{
+   String batteryLevel;
+   try{
+     batteryLevel = await platform.invokeMethod("getBatteryLevel");
+   }on PlatformException catch(e){
+     batteryLevel = "Error getting battery level${e.message}";
+   }
+   setState(() {
+     _batteryLevel = batteryLevel;
+   });
+ }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Flutter Web CI/CD Example github test demo')),
+      appBar: AppBar(title: const Text('Flutter Channel Demo')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text('Button pressed', style: TextStyle(fontSize: 20)),
-            Text(
-              '$_counter',
-              style: const TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
-            ),
+            Text(_batteryLevel),
             const SizedBox(height: 30),
             ElevatedButton.icon(
-              onPressed: _increment,
-              icon: const Icon(Icons.add),
-              label: const Text('increment'),
+              onPressed: _getBatteryLevel,
+              icon: const Icon(Icons.battery_0_bar),
+              label: const Text('Battery Level'),
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _increment,
-        child: const Icon(Icons.add),
       ),
     );
   }
