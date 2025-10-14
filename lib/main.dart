@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Web CI/CD',
+      title: 'Flutter Web CI/CD test for git commands',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: const HomePage(),
     );
